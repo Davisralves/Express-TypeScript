@@ -1,5 +1,9 @@
-import { ResultSetHeader } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import connection from './connection';
+
+interface UserId extends RowDataPacket {
+  id: number;
+}
 
 const model = {
   create: async (username: string, classe: string, level: number, password: string) => {
@@ -11,10 +15,10 @@ const model = {
     return insertId;
   },
 
-  git adddgetUserId: async (username: string) => {
-    const query = 'SELECT id FROM Trybesmith.Users WHERE username=?';
-    const [result] = await connection.execute(query, [username]) as ResultSetHeader[];
-    return result;
+  getUserId: async (username: string, password: string): Promise<UserId> => {
+    const query = 'SELECT id FROM Trybesmith.Users WHERE username=? AND password=? ';
+    const [result] = await connection.execute(query, [username, password]) as RowDataPacket[];
+    return result as UserId;
   },
 
 };
