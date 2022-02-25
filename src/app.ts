@@ -8,6 +8,7 @@ import { validateLoginPassword, validateUserName, validateUser } from './control
 import validateToken from './controllers/validateToken';
 import { validateAmount, validateName } from './controllers/validateProducts';
 import registerProduct from './controllers/registerProduct';
+import getAllProducts from './controllers/getAllProducts';
 
 const app = express();
 
@@ -20,5 +21,7 @@ app.post('/login', validateUserName, validateLoginPassword, validateUser);
 app.use(validateToken);
 
 app.post('/products', validateName, validateAmount, registerProduct);
+
+app.get('/products', getAllProducts);
 
 export default app;

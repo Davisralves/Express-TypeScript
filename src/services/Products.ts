@@ -1,3 +1,4 @@
+import { RowDataPacket } from 'mysql2';
 import ProductModel from '../models/Products';
 
 const ProductService = {
@@ -5,6 +6,8 @@ const ProductService = {
     const insertId = await ProductModel.registerProduct(name, amount);
     return insertId;
   },
+
+  getAllProducts: async (): Promise<RowDataPacket> => ProductModel.getAll(),
 };
 
 export default ProductService;

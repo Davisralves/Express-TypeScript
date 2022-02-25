@@ -1,4 +1,4 @@
-import { ResultSetHeader } from 'mysql2';
+import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import connection from './connection';
 
 const ProductModel = {
@@ -8,6 +8,13 @@ const ProductModel = {
     VALUES (?, ?)`;
     const [result] = await connection.execute<ResultSetHeader>(query, [name, amount]);
     return result.insertId;
+  },
+
+  getAll: async (): Promise<RowDataPacket> => {
+    const query = 'SELECT * FROM Trybesmith.Products';
+    const [result] = await connection.execute(query) as RowDataPacket[];
+    console.log(result);
+    return result;
   },
 };
 
