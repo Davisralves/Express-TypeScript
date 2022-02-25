@@ -20,7 +20,6 @@ export const validateLoginPassword = (req: Request, res: Response, next: NextFun
 export const validateUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;
   const userId = await UserService.getUserId(username, password);
-  console.log(userId);
   if (userId) {
     const token = generateToken(userId, username);
     return res.status(StatusCode.OK).json({ token });
