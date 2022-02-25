@@ -1,13 +1,27 @@
-import { Request, Response, NextFunction } from "express";
-import StatusCode from "../enums/statusCode";
+import { Request, Response, NextFunction } from 'express';
+import StatusCode from '../enums/statusCode';
+import generateToken from './middlewares/generateToken';
+import UserService from '../services/Users';
 
-const validateUserName = (username: string, res: Response) => {
-  if(username === undefined) {
-    return res.status(StatusCode.BAD_REQUEST).json({ error: "Username is required" })
-  } // testar se é possivel passar a Response por parametro e a utilizar.
-}
+export const validateUserName = (req: Request, res: Response, next: NextFunction) => {
+  const { username } = req.body;
+  if (username === undefined) {
+    return res.status(StatusCode.BAD_REQUEST).json({ error: 'Username is required' });
+  } return next();
+};
 
-const validateLogin = (req: Request, res: Response, next: NextFunction) => {
-  const {username, password} = req.body;
-  validateUserName(username, res);
-}
+export const validateLoginPassword = (req: Request, res: Response, next: NextFunction) => {
+  const { password } = req.body;
+  if (password === undefined) {
+    return res.status(StatusCode.BAD_REQUEST).json({ error: 'Password is required' });
+  } return next();
+};
+
+export const validateUser = async (req: Request, res: Response) => {
+  const { username } = req.body;
+  const userId = await UserService.getUserId(username);
+  if (userId) {
+    const token = generateToken(userId, username);
+    return res.status(StatusCode.OK).json({ token });
+  } return res.status(StatusCode.UNAUTHORIZED).json({ error: 'Username or password invalid' });
+};
