@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import StatusCode from '../enums/statusCode';
 
-const isUndefined = (value: undefined | string | number) => value === undefined;
+export const isUndefined = (value: undefined | string | number) => value === undefined;
 
 const isNotString = (value: string) => typeof value !== 'string'; 
 
