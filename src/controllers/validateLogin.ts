@@ -2,17 +2,18 @@ import { Request, Response, NextFunction } from 'express';
 import StatusCode from '../enums/statusCode';
 import generateToken from './middlewares/generateToken';
 import UserService from '../services/Users';
+import { isUndefined } from './validateProducts';
 
 export const validateUserName = (req: Request, res: Response, next: NextFunction) => {
   const { username } = req.body;
-  if (username === undefined) {
+  if (isUndefined(username)) {
     return res.status(StatusCode.BAD_REQUEST).json({ error: 'Username is required' });
   } return next();
 };
 
 export const validateLoginPassword = (req: Request, res: Response, next: NextFunction) => {
   const { password } = req.body;
-  if (password === undefined) {
+  if (isUndefined(password)) {
     return res.status(StatusCode.BAD_REQUEST).json({ error: 'Password is required' });
   } return next();
 };

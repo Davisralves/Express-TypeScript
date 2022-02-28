@@ -19,7 +19,6 @@ const ProductModel = {
   getAll: async (): Promise<RowDataPacket> => {
     const query = 'SELECT * FROM Trybesmith.Products';
     const [result] = await connection.execute(query) as RowDataPacket[];
-    console.log(result);
     return result;
   },
 };
