@@ -1,3 +1,4 @@
+/* Esse arquivo e codigo foi feito pela trybe */
 DROP SCHEMA IF EXISTS Trybesmith;
 CREATE SCHEMA Trybesmith;
 
