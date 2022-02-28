@@ -4,7 +4,7 @@ import connection from './connection';
 const OrderModel = {
 
   registerOrder: async (userId: number): Promise<number | undefined> => {
-    const query = 'INSERT INTO Trybesmith.Orders userId VALUE ?';
+    const query = 'INSERT INTO Trybesmith.Orders (userId) VALUES (?)';
     const [result] = await connection.execute<ResultSetHeader>(query, [userId]);
     return result.insertId;
   },

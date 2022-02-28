@@ -7,6 +7,13 @@ const ProductService = {
     return insertId;
   },
 
+  registerProductOrder: async (productIds: number[], orderId: number) => {
+    const productPromisses = productIds.map((productId) => (
+      ProductModel.registerProductOrder(productId, orderId)
+    ));
+    return Promise.all(productPromisses);
+  },
+
   getAllProducts: async (): Promise<RowDataPacket> => ProductModel.getAll(),
 };
 
